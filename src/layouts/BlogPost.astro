@@ -6,9 +6,9 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { id: string };
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, id } = Astro.props;
 ---
 
 <html lang="en">
@@ -73,6 +73,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 									</div>
 								)
 							}
+						</div>
+						<div class="mb-4">
+							<span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300 uppercase tracking-wide">
+								{id.split('/')[0].replace('-', ' ')}
+							</span>
 						</div>
 						<h1>{title}</h1>
 						<hr />
