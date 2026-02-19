@@ -63,11 +63,12 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
 }
 
-h1 { font-size: 3.052em; }
-h2 { font-size: 2.441em; }
-h3 { font-size: 1.953em; }
-h4 { font-size: 1.563em; }
-h5 { font-size: 1.25em; }
+/* Tamaños de fuentes más equilibrados y modernos */
+h1 { font-size: 2.5em; }   /* Antes era 3.052em */
+h2 { font-size: 1.75em; }  /* Antes era 2.441em - ¡Este era el culpable del ruido! */
+h3 { font-size: 1.5em; }   /* Antes era 1.953em */
+h4 { font-size: 1.25em; }  /* Antes era 1.563em */
+h5 { font-size: 1.1em; }   /* Antes era 1.25em */
 
 strong, b {
     font-weight: 700;
