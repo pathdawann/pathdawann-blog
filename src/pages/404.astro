@@ -1,0 +1,46 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <BaseHead title={`Página no encontrada - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+    </head>
+    
+    <body class="bg-gray-50 dark:bg-gray-900 transition-colors flex flex-col min-h-screen">
+        <Header />
+        
+        <main class="w-full max-w-3xl mx-auto px-4 py-20 flex-grow flex items-center justify-center">
+            
+            <div class="text-center">
+                <h1 class="text-8xl md:text-9xl font-extrabold text-blue-600 dark:text-blue-500 tracking-tighter mb-4">
+                    404
+                </h1>
+                
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    ¡Ups! Te has perdido en el ciberespacio
+                </h2>
+                
+                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-lg mx-auto">
+                    La página que intentas buscar no existe, ha sido movida o la URL es incorrecta.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors shadow-sm hover:shadow-md">
+                        Volver al Inicio
+                    </a>
+                    <a href="/blog" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-blue-700 bg-blue-50 dark:text-blue-300 dark:bg-gray-800 rounded-full hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors border border-blue-100 dark:border-gray-700">
+                        Leer las noticias
+                    </a>
+                </div>
+            </div>
+
+        </main>
+        
+        <Footer />
+    </body>
+</html>
