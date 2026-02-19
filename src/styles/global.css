@@ -1,11 +1,9 @@
 @import "tailwindcss";
 
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
+/* 1. ACTIVAR MODO OSCURO MANUAL EN TAILWIND V4 */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* 2. VARIABLES DE COLOR ORIGINALES DE TU TEMA */
 :root {
     --accent: #2337ff;
     --accent-dark: #000d8a;
@@ -15,6 +13,18 @@
     --gray-dark: 34, 41, 57;
     --gray-gradient: rgba(var(--gray-light), 50%), #fff;
     --box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
+}
+
+/* 3. MEJORAR CONTRASTE EN MODO OSCURO (Aclarar los enlaces) */
+:root[class~="dark"] {
+    --accent: #60a5fa; 
+    --accent-dark: #93c5fd;
+    
+    /* ¡NUEVO! Invertimos el negro a blanco para los títulos */
+    --black: 243, 244, 246; 
+    
+    /* ¡NUEVO! Oscurecemos el fondo de las etiquetas <code> */
+    --gray-light: 31, 41, 55; 
 }
 
 @font-face {
@@ -41,13 +51,12 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
-    background: linear-gradient(var(--gray-gradient)) no-repeat;
-    background-size: 100% 600px;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    color: rgb(var(--gray-dark));
     font-size: 20px;
     line-height: 1.7;
+    /* Eliminamos el 'background', 'background-size' y 'color' fijos. 
+       Ahora Tailwind controlará esto con las clases de la etiqueta <body> */
 }
 
 h1, h2, h3, h4, h5, h6 {
