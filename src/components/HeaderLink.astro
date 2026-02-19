@@ -4,21 +4,25 @@ import type { HTMLAttributes } from 'astro/types';
 type Props = HTMLAttributes<'a'>;
 
 const { href, class: className, ...props } = Astro.props;
-const pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, '');
+
+const { pathname } = Astro.url;
 const subpath = pathname.match(/[^\/]+/g);
-const isActive = href === pathname || href === '/' + (subpath?.[0] || '');
+const isActive = href === pathname || href === '/' + subpath?.[0];
 ---
 
-<a href={href} class:list={[className, { active: isActive }]} {...props}>
-	<slot />
+<a 
+    href={href} 
+    class:list={[
+        // 1. Aquí pegamos los estilos base que me pediste
+        "text-gray-900 dark:text-white hover:text-blue-600 transition-colors no-underline px-2 py-1",
+        
+        // 2. Si el enlace está activo, lo ponemos en negrita y azul permanentemente
+        isActive ? "font-bold text-blue-600 dark:text-blue-400" : "font-medium",
+        
+        // 3. Permitimos que se le pasen otras clases desde afuera
+        className
+    ]} 
+    {...props}
+>
+    <slot />
 </a>
-<style>
-	a {
-		display: inline-block;
-		text-decoration: none;
-	}
-	a.active {
-		font-weight: bolder;
-		text-decoration: underline;
-	}
-</style>
