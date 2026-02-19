@@ -24,37 +24,51 @@ const posts = (await getCollection('blog')).sort(
 				<ul class="grid grid-cols-1 md:grid-cols-2 gap-8">
 					{
 						posts.map((post) => (
-							<li class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
-								<a href={`/blog/${post.id}/`} class="block h-full">
-									{/* Imagen de la tarjeta */}
-									<div class="aspect-video overflow-hidden">
-										{post.data.heroImage && (
-											<Image 
-												width={720} 
-												height={360} 
-												src={post.data.heroImage} 
-												alt="" 
-												class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" 
-											/>
-										)}
-									</div>
-									
-									{/* Contenido de la tarjeta */}
-									<div class="p-6">
-										{/* Tu Badge de Categoría (Reutilizamos tu lógica) */}
-										<span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2 block">
+							<li class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group flex flex-col">
+								
+								{/* A. Enlace solo en la IMAGEN */}
+								<a href={`/blog/${post.id}/`} class="block aspect-video overflow-hidden relative">
+									{post.data.heroImage ? (
+										<Image 
+											width={720} 
+											height={405} 
+											src={post.data.heroImage} 
+											alt={post.data.title}
+											class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+										/>
+									) : (
+										<div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+											<span class="text-gray-400 text-sm">Sin imagen</span>
+										</div>
+									)}
+								</a>
+								
+								<div class="p-6 flex-1 flex flex-col">
+									<div class="flex items-center justify-between mb-3">
+										
+										{/* B. Enlace solo en la CATEGORÍA (¡Este es el nuevo!) */}
+										<a href={`/blog/category/${post.id.split('/')[0]}`} class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/50 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors relative z-10">
 											{post.id.split('/')[0].replace('-', ' ')}
-										</span>
-
-										<h4 class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
-											{post.data.title}
-										</h4>
+										</a>
 										
 										<p class="text-sm text-gray-500 dark:text-gray-400">
 											<FormattedDate date={post.data.pubDate} />
 										</p>
 									</div>
-								</a>
+
+									{/* C. Enlace solo en el TÍTULO */}
+									<a href={`/blog/${post.id}/`} class="block group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mt-2">
+										<h4 class="text-xl font-bold text-gray-900 dark:text-white leading-snug line-clamp-2">
+											{post.data.title}
+										</h4>
+									</a>
+
+									{post.data.description && (
+										<p class="text-gray-600 dark:text-gray-300 text-sm mt-3 line-clamp-3 flex-1">
+											{post.data.description}
+										</p>
+									)}
+								</div>
 							</li>
 						))
 					}
