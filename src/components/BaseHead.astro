@@ -5,6 +5,7 @@ import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/pathdawann-og.png';
 import { SITE_TITLE } from '../consts';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -63,21 +64,31 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-<script is:inline>
-    const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-            return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            return 'dark';
-        }
-        return 'light';
-    })();
+<ViewTransitions />
 
-    if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-    } else {
-        document.documentElement.classList.add('dark');
-    }
-    window.localStorage.setItem('theme', theme);
+<script is:inline>
+    const setTheme = () => {
+        const theme = (() => {
+            if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                return localStorage.getItem('theme');
+            }
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                return 'dark';
+            }
+            return 'light';
+        })();
+
+        if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+        window.localStorage.setItem('theme', theme);
+    };
+
+    // 1. Se ejecuta en la primera carga de la página
+    setTheme();
+
+    // 2. Se ejecuta cada vez que View Transitions cambia el contenido de la página
+    document.addEventListener('astro:after-swap', setTheme);
 </script>
