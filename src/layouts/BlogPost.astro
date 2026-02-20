@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+// 1. Añadimos getCollection aquí:
+import { type CollectionEntry, getCollection } from 'astro:content'; 
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
@@ -9,6 +10,17 @@ import Header from '../components/Header.astro';
 type Props = CollectionEntry<'blog'>['data'] & { id: string };
 
 const { title, description, pubDate, updatedDate, heroImage, id } = Astro.props;
+
+// --- LÓGICA DE ARTÍCULOS RELACIONADOS ---
+const currentCategory = typeof id === 'string' ? id.split('/')[0] : '';
+const allPosts = await getCollection('blog');
+
+// Filtramos por la misma categoría, excluimos el post actual, ordenamos por fecha y tomamos 3
+const relatedPosts = allPosts
+    .filter(post => post.id.startsWith(currentCategory + '/') && post.id !== id)
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+// ----------------------------------------
 ---
 
 <html lang="es">
@@ -76,6 +88,52 @@ const { title, description, pubDate, updatedDate, heroImage, id } = Astro.props;
                     
                 </div>
             </article>
+
+            {/* --- SECCIÓN DE ARTÍCULOS RELACIONADOS --- */}
+            {relatedPosts.length > 0 && (
+                <div class="max-w-4xl mx-auto mt-16 pt-10 border-t border-gray-200 dark:border-gray-800">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+                        También te podría interesar...
+                    </h3>
+                    
+                    <ul class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {relatedPosts.map((post) => (
+                            <li class="h-full">
+                                <a href={`/blog/${post.id}/`} class="flex flex-col h-full bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg border border-gray-100 dark:border-gray-700 transition-all duration-300 group hover:-translate-y-1">
+                                    
+                                    {/* Imagen de la tarjeta relacionada */}
+                                    <div class="w-full aspect-video overflow-hidden">
+                                        {post.data.heroImage ? (
+                                            <Image 
+                                                width={400} 
+                                                height={225} 
+                                                src={post.data.heroImage} 
+                                                alt={post.data.title} 
+                                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                                            />
+                                        ) : (
+                                            <div class="w-full h-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+                                                <span class="text-gray-400 text-xs">Sin imagen</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Textos de la tarjeta */}
+                                    <div class="p-5 flex flex-col grow">
+                                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight line-clamp-2">
+                                            {post.data.title}
+                                        </h4>
+                                        <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mt-auto pt-2">
+                                            <FormattedDate date={post.data.pubDate} />
+                                        </p>
+                                    </div>
+                                    
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
 
             <button id="back-to-top" aria-label="Volver arriba" class="fixed bottom-8 right-8 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg opacity-0 pointer-events-none translate-y-5 transition-all duration-300 hover:bg-blue-700 hover:shadow-xl dark:bg-blue-500 dark:hover:bg-blue-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
