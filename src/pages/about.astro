@@ -2,57 +2,88 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
 <html lang="es">
     <head>
-        <BaseHead title={`Sobre nosotros - ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+        <BaseHead title={`Sobre Nosotros - ${SITE_TITLE}`} description="Conoce la misión editorial de Pathdawann, el portal de tecnología y desarrollo." />
     </head>
-    <body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+    <body class="bg-gray-50 dark:bg-gray-900 transition-colors flex flex-col min-h-screen">
         <Header />
-        
-        <main class="w-full max-w-3xl mx-auto px-4 md:px-8 py-10 md:py-16">
-            <div class="max-w-3xl mx-auto">
-                
-                {/* Cabecera de la página */}
-                <div class="text-center mb-10">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-4">
-                        Sobre <span class="text-blue-600 dark:text-blue-500">Pathdawann</span>
-                    </h1>
-                    <p class="text-xl text-gray-500 dark:text-gray-400 font-medium">
-                        Tu espacio de desarrollo e Inteligencia Artificial
-                    </p>
-                    <hr class="border-gray-200 dark:border-gray-800 mt-10" />
-                </div>
 
-                {/* Contenido (Usamos prose para que el texto se vea igual de bien que en el blog) */}
-                <div class="prose prose-slate dark:prose-invert max-w-none text-lg text-gray-800 dark:text-gray-200 leading-relaxed">
-                    <p>
-                        ¡Hola! Bienvenido a <strong>Pathdawann</strong>. Este es un espacio dedicado a explorar, aprender y compartir conocimientos sobre el fascinante mundo del desarrollo web, la automatización y la inteligencia artificial.
-                    </p>
-                    
-                    <h3>Nuestra Misión</h3>
-                    <p>
-                        Queremos desmitificar la programación y hacer que la tecnología sea accesible para todos. Desde guías para configurar tu entorno de trabajo, hasta tutoriales avanzados de código, aquí encontrarás recursos prácticos para impulsar tu carrera.
-                    </p>
+        <main class="w-full max-w-4xl mx-auto px-4 md:px-8 py-12 md:py-20 grow">
 
-                    <h3>¿Qué encontrarás aquí?</h3>
-                    <ul>
-                        <li><strong>Desarrollo Web:</strong> Trucos, buenas prácticas y tutoriales sobre frameworks modernos como Astro, Tailwind y más.</li>
-                        <li><strong>Software IA:</strong> Análisis de nuevas herramientas, automatizaciones y cómo integrar la inteligencia artificial en tu flujo de trabajo diario.</li>
-                        <li><strong>Recursos:</strong> Guías paso a paso pensadas tanto para principiantes (Padawans) como para desarrolladores experimentados.</li>
-                    </ul>
-
-                    <p>
-                        Gracias por leer y ser parte de esta comunidad. ¡Sigue explorando y construyendo la web que quieres!
-                    </p>
-                </div>
-                
+            {/* 1. Cabecera Institucional */}
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white leading-tight mb-6">
+                    Sobre <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">Pathdawann</span>
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 font-medium leading-relaxed max-w-2xl mx-auto">
+                    Decodificando el futuro de la tecnología, una línea de código a la vez.
+                </p>
             </div>
+
+            {/* 2. Historia / Misión Editorial (Usamos prose para tipografía de lectura perfecta) */}
+            <div class="prose prose-lg prose-slate dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 leading-relaxed mb-20 text-justify md:text-left">
+                <p>
+                    En un ecosistema digital que evoluciona a un ritmo vertiginoso, mantenerse actualizado es un desafío constante. <strong>Pathdawann</strong> nace con una misión clara: ser el faro que guía tanto a desarrolladores emergentes como a ingenieros experimentados a través del vasto universo de la tecnología moderna.
+                </p>
+                <p>
+                    No nos limitamos a replicar comunicados de prensa. Nuestro equipo analiza, prueba y desglosa las últimas herramientas de Inteligencia Artificial, los frameworks de desarrollo web más eficientes y las noticias de software que realmente impactan en la industria.
+                </p>
+                <p>
+                    Queremos transformar la saturación de información en conocimiento técnico, práctico y accionable.
+                </p>
+            </div>
+
+            {/* 3. Pilares Editoriales (Tarjetas) */}
+            <div class="mb-20">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-10 text-center">Nuestros Pilares Editoriales</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    {/* Pilar 1 */}
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:-translate-y-1 hover:shadow-lg transition-all">
+                        <div class="w-14 h-14 mx-auto bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Rigor Técnico</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Contenido verificado, código probado y análisis profundo. Huimos del clickbait para ofrecer valor real a nuestra audiencia.</p>
+                    </div>
+
+                    {/* Pilar 2 */}
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:-translate-y-1 hover:shadow-lg transition-all">
+                        <div class="w-14 h-14 mx-auto bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Enfoque Práctico</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">De la teoría a la práctica. Nuestras noticias y tutoriales están diseñados para que apliques lo aprendido hoy mismo.</p>
+                    </div>
+
+                    {/* Pilar 3 */}
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center hover:-translate-y-1 hover:shadow-lg transition-all">
+                        <div class="w-14 h-14 mx-auto bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 rounded-full flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Comunidad</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">Fomentamos el debate sano, el código abierto y el intercambio constante de ideas entre desarrolladores de todos los niveles.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* 4. Llamado a la acción (Cierre) */}
+            <div class="text-center bg-blue-600 dark:bg-blue-900/40 rounded-3xl p-10 md:p-14 border border-blue-500 dark:border-blue-800 shadow-lg">
+                <h2 class="text-3xl font-bold text-white mb-6">¿Listo para mantenerte al día?</h2>
+                <p class="text-blue-100 text-lg mb-8 max-w-xl mx-auto">Únete a cientos de lectores que ya confían en nosotros para entender el futuro de la web.</p>
+                <a href="/blog" class="inline-block px-8 py-3 bg-white text-blue-600 hover:bg-gray-100 font-bold rounded-xl transition-colors shadow-md text-lg">
+                    Ir a las Noticias
+                </a>
+            </div>
+
         </main>
-        
+
         <Footer />
     </body>
 </html>
