@@ -1,0 +1,165 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+// 1. Obtenemos TODAS las noticias
+const posts = (await getCollection('blog')).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <BaseHead title={`Buscar - ${SITE_TITLE}`} description="Encuentra tutoriales, noticias y artículos en Pathdawann." />
+    </head>
+    <body class="bg-gray-50 dark:bg-gray-900 transition-colors flex flex-col min-h-screen">
+        <Header />
+
+        <main class="w-full max-w-5xl mx-auto px-4 md:px-8 py-12 md:py-20 grow">
+
+            {/* Cabecera del buscador */}
+            <div class="max-w-3xl mx-auto text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6">
+                    ¿Qué quieres <span class="text-blue-600 dark:text-blue-400">aprender</span> hoy?
+                </h1>
+                
+                {/* Barra de Búsqueda */}
+                <div class="relative w-full shadow-lg rounded-2xl group">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-5 pointer-events-none">
+                        <svg class="w-6 h-6 text-gray-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input 
+                        type="search" 
+                        id="search-input" 
+                        class="block w-full p-6 pl-14 text-lg text-gray-900 border border-gray-200 rounded-2xl bg-white focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500 transition-all outline-none" 
+                        placeholder="Ej. Astro, Tailwind, Supabase, Inteligencia Artificial..." 
+                        autocomplete="off"
+                    />
+                </div>
+            </div>
+
+            {/* Contador de resultados */}
+            <div id="search-status" class="text-center font-medium text-blue-600 dark:text-blue-400 mb-8 hidden">
+                </div>
+
+            {/* Cuadrícula de Resultados (Empiezan ocultos: clase 'hidden') */}
+            <ul id="search-results-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {
+                    posts.map((post) => (
+                        // Inyectamos la data en atributos HTML para leerlos en el navegador
+                        <li 
+                            class="search-item hidden bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group flex-col h-full"
+                            data-title={post.data.title.toLowerCase()}
+                            data-desc={post.data.description ? post.data.description.toLowerCase() : ''}
+                            data-category={post.id.split('/')[0].toLowerCase()}
+                        >
+                            <a href={`/blog/${post.id}/`} class="block aspect-video overflow-hidden relative">
+                                {post.data.heroImage ? (
+                                    <Image width={600} height={337} src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                                ) : (
+                                    <div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                        <span class="text-gray-400 text-xs">Sin imagen</span>
+                                    </div>
+                                )}
+                            </a>
+                            <div class="p-4 flex flex-col grow">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 dark:text-blue-300 dark:bg-blue-900/30 rounded-full border border-blue-100 dark:border-blue-800">
+                                        {post.id.split('/')[0].replace('-', ' ')}
+                                    </span>
+                                    <p class="text-xs text-gray-400">
+                                        <FormattedDate date={post.data.pubDate} />
+                                    </p>
+                                </div>
+                                <h4 class="text-base font-bold text-gray-900 dark:text-white leading-tight line-clamp-2 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                    {post.data.title}
+                                </h4>
+                                <p class="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mt-auto">
+                                    {post.data.description}
+                                </p>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+
+            {/* Mensaje de no encontrado */}
+            <div id="no-results" class="text-center py-16 hidden">
+                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gray-100 dark:bg-gray-800/50 mb-6 border border-gray-200 dark:border-gray-700">
+                    <svg class="w-10 h-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">No encontramos resultados</h3>
+                <p class="text-gray-500 dark:text-gray-400 max-w-md mx-auto">No hay artículos que coincidan con tu búsqueda. Intenta con otras palabras clave como "Astro" o "Desarrollo".</p>
+            </div>
+
+        </main>
+        
+        <Footer />
+    </body>
+</html>
+
+<script>
+    // Usamos astro:page-load para que funcione con View Transitions sin romper el código
+    document.addEventListener('astro:page-load', () => {
+        const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+        const searchItems = document.querySelectorAll('.search-item');
+        const searchStatus = document.getElementById('search-status');
+        const noResults = document.getElementById('no-results');
+
+        if (!searchInput) return;
+
+        // Limpiamos el input al cargar la página por si el usuario vuelve atrás
+        searchInput.value = '';
+
+        searchInput.addEventListener('input', (e) => {
+            const target = e.target as HTMLInputElement;
+            const searchTerm = target.value.toLowerCase().trim();
+            let matchCount = 0;
+
+            // Si la barra está vacía, ocultamos todo y salimos
+            if (searchTerm === '') {
+                searchItems.forEach(item => {
+                    item.classList.remove('flex');
+                    item.classList.add('hidden');
+                });
+                if (noResults) noResults.classList.add('hidden');
+                if (searchStatus) searchStatus.classList.add('hidden');
+                return;
+            }
+
+            // Si hay texto, filtramos las tarjetas
+            searchItems.forEach(item => {
+                const title = item.getAttribute('data-title') || '';
+                const desc = item.getAttribute('data-desc') || '';
+                const cat = item.getAttribute('data-category') || '';
+
+                if (title.includes(searchTerm) || desc.includes(searchTerm) || cat.includes(searchTerm)) {
+                    item.classList.remove('hidden');
+                    item.classList.add('flex'); // Mantiene el diseño flexbox de la tarjeta
+                    matchCount++;
+                } else {
+                    item.classList.remove('flex');
+                    item.classList.add('hidden');
+                }
+            });
+
+            // Actualizamos la interfaz según si hubo coincidencias
+            if (searchStatus && noResults) {
+                if (matchCount > 0) {
+                    searchStatus.textContent = `Mostrando ${matchCount} ${matchCount === 1 ? 'resultado' : 'resultados'} para "${target.value}"`;
+                    searchStatus.classList.remove('hidden');
+                    noResults.classList.add('hidden');
+                } else {
+                    searchStatus.classList.add('hidden');
+                    noResults.classList.remove('hidden');
+                }
+            }
+        });
+    });
+</script>
