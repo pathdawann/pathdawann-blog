@@ -34,49 +34,56 @@ El repositorio sigue una estructura estricta de separación de responsabilidades
 └── astro.config.mjs        # Configuración central del framework
 ```
 
-🚀 Despliegue Local (Getting Started)
+## 🚀 Despliegue Local (Getting Started)
 Si deseas clonar este proyecto y correrlo en tu entorno local, sigue estos pasos:
 
-Clona el repositorio:
-
-Bash
+### 1. Clona el repositorio:
+```
 git clone [https://github.com/pathdawann/pathdawann.git](https://github.com/pathdawann/pathdawann.git)
-Navega al directorio e instala las dependencias:
+```
 
-Bash
+### 2.Navega al directorio e instala las dependencias:
+```
 cd pathdawann
 npm install
-Inicia el servidor de desarrollo:
+```
 
-Bash
+### 3.Inicia el servidor de desarrollo:
+```
 npm run dev
+```
+
 El portal estará disponible localmente en http://localhost:4321.
 
-✍️ Flujo de Creación de Contenido
-Pathdawann utiliza Astro Content Collections. Para publicar una nueva noticia:
+## ✍️ Flujo de Creación de Contenido
+Pathdawann utiliza <strong>Astro Content Collections</strong>. Para publicar una nueva noticia:
 
-Dirígete a src/content/blog/ y elige la carpeta de la categoría correspondiente (ej. desarrollo/ o software-ia/).
+1. Dirígete a src/content/blog/ y elige la carpeta de la categoría correspondiente (ej. desarrollo/ o software-ia/).
 
-Crea un nuevo archivo Markdown (.md).
+2. Crea un nuevo archivo Markdown (.md).
 
-Agrega el siguiente Frontmatter obligatorio al inicio del archivo:
+3. Agrega el siguiente Frontmatter obligatorio al inicio del archivo:
+    ```
+    title: 'Título de la Noticia'
+    description: 'Breve resumen para la tarjeta y el SEO.'
+    pubDate: 'YYYY-MM-DD'
+    heroImage: '../../../assets/nombre-imagen.jpg'
+    ```
 
-Markdown
----
-title: 'Título de la Noticia'
-description: 'Breve resumen para la tarjeta y el SEO.'
-pubDate: 'YYYY-MM-DD'
-heroImage: '../../../assets/nombre-imagen.jpg'
----
-Redacta el cuerpo de la noticia utilizando la sintaxis estándar de Markdown. El diseño tipográfico y el modo oscuro se aplicarán automáticamente gracias a @tailwindcss/typography.
+4. Redacta el cuerpo de la noticia utilizando la sintaxis estándar de Markdown. El diseño tipográfico y el modo oscuro se aplicarán automáticamente gracias a @tailwindcss/typography.
 
-🗺️ Roadmap (Próximos Pasos)
-[ ] Implementación de SEO avanzado (JSON-LD y Open Graph tags).
+## 🗺️ Roadmap (Próximos Pasos)
+- [ ] Implementación de SEO avanzado (JSON-LD y Open Graph tags).
 
-[ ] Cálculo dinámico del "Tiempo de lectura" en cada artículo.
+- [ ] Cálculo dinámico del "Tiempo de lectura" en cada artículo.
 
-[ ] Integración de sistema de comentarios o debates de la comunidad.
+- [ ] Integración de sistema de comentarios o debates de la comunidad.
 
-[ ] Automatización de la distribución de contenido (RSS a Telegram/Redes).
+- [ ] Automatización de la distribución de contenido (RSS a Telegram/Redes).
 
+<hr2 align="center"></hr2>
 Construido con rigor técnico para la comunidad.
+
+```
+Una vez que guardes los cambios en GitHub, tu repositorio se verá impecable
+```
