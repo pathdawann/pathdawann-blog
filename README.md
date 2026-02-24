@@ -32,6 +32,7 @@ El repositorio sigue una estructura estricta de separación de responsabilidades
 │   ├── pages/              # Enrutamiento de Astro (Paginación, Búsqueda, 404)
 │   └── consts.ts           # Variables globales de configuración
 └── astro.config.mjs        # Configuración central del framework
+```
 
 🚀 Despliegue Local (Getting Started)
 Si deseas clonar este proyecto y correrlo en tu entorno local, sigue estos pasos:
