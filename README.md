@@ -13,15 +13,19 @@
 - 📱 **Diseño Responsivo y Utilitario:** Interfaz construida íntegramente con Tailwind CSS v4.
 - 🌓 **Modo Oscuro Nativo:** Transiciones de color automáticas y sin parpadeos visuales.
 - 🔍 **Buscador en Tiempo Real:** Motor de búsqueda del lado del cliente sin dependencias externas pesadas.
-- 📄 **Paginación Matemática:** Distribución automática de artículos (8 por página) para mantener la fluidez de navegación.
-- 🧠 **Motor de Recomendaciones:** Lógica integrada para sugerir artículos relacionados basados en la categoría de lectura actual.
+- 📄 **Paginación Matemática:** Distribución automática de artículos (8 por página) para mantener la fluidez.
+- 🧠 **Motor de Recomendaciones:** Lógica integrada para sugerir artículos relacionados basados en la categoría.
 - 🚀 **View Transitions:** Navegación entre páginas fluida tipo SPA (Single Page Application).
+- 📈 **SEO de Grado Corporativo:** Inyección automática de JSON-LD y etiquetas Open Graph para redes sociales.
+- ⏱️ **UX de Lectura:** Cálculo dinámico del tiempo de lectura basado en la longitud de cada artículo.
+- 💬 **Debates de la Comunidad:** Sistema de comentarios integrado directamente con GitHub Discussions (Giscus).
+- 📡 **Motor de Distribución:** Feed RSS (`/rss.xml`) optimizado con etiquetas de categoría para automatizaciones.
 
 ## 🏗️ Arquitectura del Proyecto
 
 El repositorio sigue una estructura estricta de separación de responsabilidades:
 
-```text
+```
 /
 ├── public/                 # Recursos estáticos (favicon, fuentes)
 ├── src/
@@ -29,7 +33,7 @@ El repositorio sigue una estructura estricta de separación de responsabilidades
 │   ├── components/         # Componentes de UI reutilizables (Header, Footer, Tarjetas)
 │   ├── content/blog/       # Base de datos basada en archivos Markdown por categoría
 │   ├── layouts/            # Plantillas maestras de las páginas
-│   ├── pages/              # Enrutamiento de Astro (Paginación, Búsqueda, 404)
+│   ├── pages/              # Enrutamiento de Astro (Paginación, Búsqueda, RSS, 404)
 │   └── consts.ts           # Variables globales de configuración
 └── astro.config.mjs        # Configuración central del framework
 ```
@@ -39,12 +43,12 @@ Si deseas clonar este proyecto y correrlo en tu entorno local, sigue estos pasos
 
 ### 1. Clona el repositorio:
 ```
-git clone [https://github.com/pathdawann/pathdawann.git](https://github.com/pathdawann/pathdawann.git)
+git clone [https://github.com/pathdawann/pathdawann-blog.git](https://github.com/pathdawann/pathdawann-blog.git)
 ```
 
 ### 2.Navega al directorio e instala las dependencias:
 ```
-cd pathdawann
+cd pathdawann-blog
 npm install
 ```
 
@@ -72,18 +76,18 @@ Pathdawann utiliza <strong>Astro Content Collections</strong>. Para publicar una
 
 4. Redacta el cuerpo de la noticia utilizando la sintaxis estándar de Markdown. El diseño tipográfico y el modo oscuro se aplicarán automáticamente gracias a @tailwindcss/typography.
 
-## 🗺️ Roadmap (Próximos Pasos)
-- [ ] Implementación de SEO avanzado (JSON-LD y Open Graph tags).
+## 🗺️ Roadmap y Evolución del Proyecto
 
-- [ ] Cálculo dinámico del "Tiempo de lectura" en cada artículo.
+**Fase 1: Core y Experiencia de Usuario (Completado ✅)**
+- [x] SEO avanzado y cálculo de tiempo de lectura.
+- [x] Paginación, buscador interno y sistema de comentarios.
+- [x] RSS optimizado para lectura de bots.
 
-- [ ] Integración de sistema de comentarios o debates de la comunidad.
-
-- [ ] Automatización de la distribución de contenido (RSS a Telegram/Redes).
+**Fase 2: Distribución y Backend (Próximos Pasos 🚀)**
+- [ ] Despliegue a producción (Vercel/Netlify) y configuración de dominio personalizado.
+- [ ] Construcción de flujos en n8n para leer el RSS y publicar automáticamente en canales de Telegram.
+- [ ] Integración de backend con Supabase para la gestión de suscriptores a un newsletter.
+- [ ] Creación de un Chatbot interactivo para interactuar con los lectores del portal.
 
 <hr2 align="center"></hr2>
 Construido con rigor técnico para la comunidad.
-
-```
-Una vez que guardes los cambios en GitHub, tu repositorio se verá impecable
-```
