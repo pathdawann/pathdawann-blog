@@ -89,5 +89,5 @@ Pathdawann utiliza <strong>Astro Content Collections</strong>. Para publicar una
 - [ ] Integración de backend con Supabase para la gestión de suscriptores a un newsletter.
 - [ ] Creación de un Chatbot interactivo para interactuar con los lectores del portal.
 
-<hr2 align="center"></hr2>
+<hr></hr>
 Construido con rigor técnico para la comunidad.
