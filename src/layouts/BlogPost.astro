@@ -21,11 +21,34 @@ const relatedPosts = allPosts
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
     .slice(0, 3);
 // ----------------------------------------
+
+// --- JSON-LD PARA SEO AVANZADO (Google Discover) ---
+const schema = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": Astro.url.toString()
+    },
+    "headline": title,
+    "description": description,
+    "image": heroImage ? new URL(heroImage.src, Astro.site || Astro.url).toString() : undefined,
+    "author": {
+        "@type": "Organization",
+        "name": "Pathdawann",
+        "url": new URL("/about", Astro.site || Astro.url).toString()
+    },
+    "datePublished": pubDate.toISOString(),
+    "dateModified": (updatedDate || pubDate).toISOString()
+};
+// ---------------------------------------------------
 ---
 
 <html lang="es">
     <head>
-        <BaseHead title={title} description={description} />
+        {/* Pasamos heroImage a BaseHead y agregamos el script de Schema */}
+        <BaseHead title={title} description={description} image={heroImage} />
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     </head>
 
     <body class="bg-gray-50 dark:bg-gray-900 transition-colors">
