@@ -22,6 +22,14 @@ const relatedPosts = allPosts
     .slice(0, 3);
 // ----------------------------------------
 
+// --- CÁLCULO DE TIEMPO DE LECTURA ---
+const currentPost = allPosts.find(post => post.id === id);
+const textContent = currentPost ? currentPost.body : '';
+// Dividimos por espacios para contar las palabras y calculamos (200 palabras por minuto)
+const wordCount = textContent.split(/\s+/).length;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200)); 
+// ------------------------------------
+
 // --- JSON-LD PARA SEO AVANZADO (Google Discover) ---
 const schema = {
     "@context": "https://schema.org",
@@ -77,13 +85,26 @@ const schema = {
                     {/* Cabecera del post */}
                     <div class="text-center mb-10">
                         
-                        {/* Fechas */}
-                        <div class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-4 flex justify-center gap-2">
+                        {/* Fechas y Tiempo de Lectura */}
+                        <div class="text-gray-500 dark:text-gray-400 text-sm font-medium mb-4 flex justify-center items-center gap-3">
                             <FormattedDate date={pubDate} />
+                            
+                            {/* Punto separador */}
+                            <span class="text-gray-300 dark:text-gray-600">&bull;</span>
+                            
+                            {/* Etiqueta de tiempo de lectura */}
+                            <span class="flex items-center gap-1">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                {readingTime} min de lectura
+                            </span>
+
                             {updatedDate && (
-                                <span class="italic text-gray-400">
-                                    (Actualizado: <FormattedDate date={updatedDate} />)
-                                </span>
+                                <>
+                                    <span class="text-gray-300 dark:text-gray-600">&bull;</span>
+                                    <span class="italic text-gray-400">
+                                        (Actualizado: <FormattedDate date={updatedDate} />)
+                                    </span>
+                                </>
                             )}
                         </div>
 
