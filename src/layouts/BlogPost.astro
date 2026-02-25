@@ -130,6 +130,30 @@ const schema = {
                         <slot />
                     </div>
                     
+                    {/* --- CAJA DE COMENTARIOS GISCUS --- */}
+                    <div class="mt-16 pt-10 border-t border-gray-200 dark:border-gray-800">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+                            Comentarios de la Comunidad
+                        </h3>
+                        
+                        {/* PEGA TU SCRIPT DE GISCUS EXACTAMENTE AQUÍ DEBAJO */}
+                        <script src="https://giscus.app/client.js"
+                                data-repo="pathdawann/pathdawann-blog"
+                                data-repo-id="R_kgDORYALjA"
+                                data-category="General"
+                                data-category-id="DIC_kwDORYALjM4C3Nfg"
+                                data-mapping="pathname"
+                                data-strict="0"
+                                data-reactions-enabled="1"
+                                data-emit-metadata="0"
+                                data-input-position="bottom"
+                                data-theme="dark_dimmed"
+                                data-lang="es"
+                                crossorigin="anonymous"
+                                async>
+                        </script>
+                    </div>
+
                 </div>
             </article>
 
