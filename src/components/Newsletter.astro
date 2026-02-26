@@ -1,0 +1,90 @@
+---
+// src/components/Newsletter.astro
+---
+
+<div class="bg-blue-50 dark:bg-slate-800/50 rounded-2xl p-8 my-10 text-center shadow-sm border border-blue-100 dark:border-slate-700">
+    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">¡Únete a la tripulación! 🚀</h3>
+    <p class="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
+        Suscríbete al newsletter para recibir mis últimos artículos sobre desarrollo web, IA y automatizaciones directamente en tu correo.
+    </p>
+
+    <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input 
+            type="email" 
+            id="email-input" 
+            required 
+            placeholder="tu@correo.com" 
+            class="flex-1 px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+        />
+        <button 
+            type="submit" 
+            id="submit-btn"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+        >
+            <span id="btn-text">Suscribirme</span>
+        </button>
+    </form>
+
+    <p id="form-message" class="mt-4 text-sm font-medium hidden"></p>
+</div>
+
+<script>
+    // Importamos nuestra conexión a Supabase
+    import { supabase } from '../lib/supabase';
+
+    // Usamos astro:page-load para que funcione perfectamente con las View Transitions
+    document.addEventListener('astro:page-load', () => {
+        const form = document.getElementById('newsletter-form') as HTMLFormElement;
+        const emailInput = document.getElementById('email-input') as HTMLInputElement;
+        const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+        const btnText = document.getElementById('btn-text');
+        const formMessage = document.getElementById('form-message');
+
+        if (!form) return;
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evitamos que la página recargue
+            
+            const email = emailInput.value.trim();
+            if (!email) return;
+
+            // 1. Estado de carga (Loading)
+            submitBtn.disabled = true;
+            if (btnText) btnText.textContent = 'Enviando...';
+            if (formMessage) formMessage.className = 'mt-4 text-sm font-medium hidden';
+
+            try {
+                // 2. Enviamos el correo a nuestra tabla 'subscribers'
+                const { error } = await supabase
+                    .from('subscribers')
+                    .insert([{ email: email }]);
+
+                if (error) {
+                    // Código 23505 de PostgreSQL = Unique violation (correo repetido)
+                    if (error.code === '23505') { 
+                        throw new Error('¡Este correo ya está suscrito!');
+                    }
+                    throw new Error('Hubo un error al suscribirte. Intenta de nuevo.');
+                }
+
+                // 3. Éxito
+                if (formMessage) {
+                    formMessage.textContent = '¡Gracias por unirte a la comunidad! 🎉';
+                    formMessage.className = 'mt-4 text-sm font-medium text-green-600 dark:text-green-400 block';
+                }
+                form.reset();
+
+            } catch (err: any) {
+                // 4. Mostrar error
+                if (formMessage) {
+                    formMessage.textContent = err.message || 'Ocurrió un error inesperado.';
+                    formMessage.className = 'mt-4 text-sm font-medium text-red-600 dark:text-red-400 block';
+                }
+            } finally {
+                // 5. Restaurar el botón
+                submitBtn.disabled = false;
+                if (btnText) btnText.textContent = 'Suscribirme';
+            }
+        });
+    });
+</script>
