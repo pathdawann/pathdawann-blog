@@ -22,7 +22,7 @@ export async function GET(context) {
 
             return {
                 ...post.data, // Trae automáticamente el title, description y pubDate
-                link: `/blog/${post.id}/`,
+                link: `/blog/${post.slug}/`,
                 
                 // 3. LA MAGIA PARA N8N: Inyectamos la categoría en formato XML
                 customData: `<category>${category}</category>`,
