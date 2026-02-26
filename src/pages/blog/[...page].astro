@@ -60,7 +60,7 @@ const regularPosts = isFirstPage ? page.data.slice(2) : page.data;
                         {
                             featuredPosts.map((post) => (
                                 <li class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group flex flex-col">
-                                    <a href={`/blog/${post.id}/`} class="block aspect-video overflow-hidden relative">
+                                    <a href={`/blog/${post.slug}/`} class="block aspect-video overflow-hidden relative">
                                         {post.data.heroImage ? (
                                             <Image width={800} height={450} src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
                                         ) : (
@@ -78,7 +78,7 @@ const regularPosts = isFirstPage ? page.data.slice(2) : page.data;
                                                 <FormattedDate date={post.data.pubDate} />
                                             </p>
                                         </div>
-                                        <a href={`/blog/${post.id}/`} class="block group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+                                        <a href={`/blog/${post.slug}/`} class="block group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
                                             <h4 class="text-xl font-bold text-gray-900 dark:text-white leading-tight line-clamp-2">
                                                 {post.data.title}
                                             </h4>
@@ -110,7 +110,7 @@ const regularPosts = isFirstPage ? page.data.slice(2) : page.data;
                         {
                             regularPosts.map((post) => (
                                 <li class="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 overflow-hidden group flex flex-col">
-                                    <a href={`/blog/${post.id}/`} class="block aspect-video overflow-hidden relative">
+                                    <a href={`/blog/${post.slug}/`} class="block aspect-video overflow-hidden relative">
                                         {post.data.heroImage ? (
                                             <Image width={600} height={337} src={post.data.heroImage} alt={post.data.title} class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
                                         ) : (
@@ -128,7 +128,7 @@ const regularPosts = isFirstPage ? page.data.slice(2) : page.data;
                                                 <FormattedDate date={post.data.pubDate} />
                                             </p>
                                         </div>
-                                        <a href={`/blog/${post.id}/`} class="block group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
+                                        <a href={`/blog/${post.slug}/`} class="block group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2">
                                             <h4 class="text-base font-bold text-gray-900 dark:text-white leading-tight line-clamp-2">
                                                 {post.data.title}
                                             </h4>
