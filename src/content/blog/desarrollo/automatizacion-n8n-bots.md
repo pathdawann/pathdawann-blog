@@ -18,4 +18,4 @@ Supongamos que gestionas un canal de ventas a través de Telegram. En lugar de r
 3. **Generación:** El sistema crea un archivo HTML dinámico con el presupuesto y lo convierte a PDF.
 4. **Respuesta:** El bot de Telegram responde al usuario adjuntando el PDF estructurado en cuestión de segundos.
 
-Orquestar esto hace un par de años requería levantar servidores, lidiar con microservicios y mantener APIs. Hoy, con la orquestación visual y la IA generativa, podemos desplegar sistemas de cotización y atención hiper-eficientes en una sola tarde de trabajo.
+Orquestar esto hace un par de años requería levantar servidores, lidiar con Microservicios y mantener APIs. Hoy, con la orquestación visual y la IA generativa, podemos desplegar sistemas de cotización y atención hiper-eficientes en una sola tarde de trabajo.

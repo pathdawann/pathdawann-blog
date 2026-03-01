@@ -71,9 +71,9 @@ const regularPosts = isFirstPage ? page.data.slice(2) : page.data;
                                     </a>
                                     <div class="p-5 flex-1 flex flex-col">
                                         <div class="flex items-center justify-between mb-3">
-                                            <a href={`/blog/category/${post.id.split('/')[0]}`} class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/50 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors relative z-10">
-                                                {post.id.split('/')[0].replace('-', ' ')}
-                                            </a>
+                                            <a href={`/blog/category/${post.data.category || post.id.split('/')[0]}`} class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/50 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors relative z-10">
+    {(post.data.category || post.id.split('/')[0]).replace('-', ' ')}
+</a>
                                             <p class="text-sm text-gray-500 dark:text-gray-400">
                                                 <FormattedDate date={post.data.pubDate} />
                                             </p>
@@ -121,9 +121,9 @@ const regularPosts = isFirstPage ? page.data.slice(2) : page.data;
                                     </a>
                                     <div class="p-4 flex-1 flex flex-col">
                                         <div class="flex items-center justify-between mb-2">
-                                            <a href={`/blog/category/${post.id.split('/')[0]}`} class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 dark:text-blue-300 dark:bg-blue-900/30 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors relative z-10 border border-blue-100 dark:border-blue-800">
-                                                {post.id.split('/')[0].replace('-', ' ')}
-                                            </a>
+                                            <a href={`/blog/category/${post.data.category || post.id.split('/')[0]}`} class="inline-block px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 dark:text-blue-300 dark:bg-blue-900/30 rounded-full hover:bg-blue-100 dark:hover:bg-blue-800 transition-colors relative z-10 border border-blue-100 dark:border-blue-800">
+    {(post.data.category || post.id.split('/')[0]).replace('-', ' ')}
+</a>
                                             <p class="text-xs text-gray-400">
                                                 <FormattedDate date={post.data.pubDate} />
                                             </p>
