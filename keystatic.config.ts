@@ -1,10 +1,9 @@
 import { config, fields, collection } from '@keystatic/core';
 
 export default config({
-  storage: {
-    // Cuando estés en local, guardará los archivos directo en tu computadora
-    kind: 'local',
-  },
+  storage: import.meta.env.DEV 
+    ? { kind: 'local' } 
+    : { kind: 'github', repo: 'pathdawann/pathdawann-blog' },
   collections: {
     posts: collection({
       label: 'Artículos de Pathdawann',

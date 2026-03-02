@@ -7,11 +7,16 @@ import keystatic from '@keystatic/astro';
 
 import markdoc from '@astrojs/markdoc';
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://pathdawann.vercel.app',
   integrations: [mdx(), sitemap(), react(), keystatic(), markdoc()],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
+  adapter: vercel(),
 });

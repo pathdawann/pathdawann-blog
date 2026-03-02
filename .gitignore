@@ -26,3 +26,4 @@ pnpm-debug.log*
 # Archivos autogenerados para IA
 repomix-output.xml
 repomix-output.txt
+.vercel
